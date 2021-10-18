@@ -32,23 +32,25 @@ public class Profesor extends Persona{
     public void modificarDatos() {
         Scanner s = new Scanner(System.in);
 
-        System.out.println("Estas modificando los datos de:\n");
+        System.out.println("Estas modificando los datos de: \n" + getApellido() + ", " + getNombre() + " " + getLegajo());
         System.out.println("Ingresa un nuevo nombre:\n");
-        String nombre = s.nextLine();
-        this.setNombre(nombre);
+        this.setNombre(ValidacionDatos.ingresarSoloLetras());
         System.out.println("Ingresa un nuevo apellido:\n");
-        String apellido = s.nextLine();
-        this.setApellido(apellido);
+        this.setApellido(ValidacionDatos.ingresarSoloLetras());
         System.out.println("Ingresa un nuevo numero de legajo:\n");
-        int legajo = s.nextInt();
-        this.setLegajo(legajo);
+        this.setLegajo(ValidacionDatos.ingresarSoloNumeros());
+        System.out.println("Ingresa Salario basico.");
+        this.setBasico(ValidacionDatos.ingresarSoloNumerosD());
+        System.out.println("Ingresa la antiguedad del profesor.");
+        this.setAntiguedad(ValidacionDatos.ingresarSoloNumeros());
+        System.out.println(this.toString());
     }
 
 
     //ToString muestra los datos modificados de el prof.
     @Override
     public String toString() {
-        return "Profesor:/n" + super.toString();
+        return "Profesor:\n" + super.toString();
     }
 
 

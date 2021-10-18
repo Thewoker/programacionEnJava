@@ -12,22 +12,20 @@ public class Estudiante extends Persona {
     public void modificarDatos() {
     Scanner s = new Scanner(System.in);
 
-        System.out.println("Estas modificando los datos de:\n");
-        System.out.println("Ingresa un nuevo nombre:\n");
-        String nombre = s.nextLine();
-        this.setNombre(nombre);
-        System.out.println("Ingresa un nuevo apellido:\n");
-        String apellido = s.nextLine();
-        this.setApellido(apellido);
-        System.out.println("Ingresa un nuevo numero de legajo:\n");
-        int legajo = s.nextInt();
-        this.setLegajo(legajo);
+        System.out.println("Estas modificando los datos de:\n" + getApellido() + ", " +getNombre() + " "+ getLegajo() + "\n");
+        System.out.println("Ingresa un Apellido: \n");
+        this.setApellido(ValidacionDatos.ingresarSoloLetras());
+        System.out.println("Ingresa un Nombre: \n");
+        this.setNombre(ValidacionDatos.ingresarSoloLetras());
+        System.out.println("Ingresa un Legajo: \n");
+        this.setLegajo(ValidacionDatos.ingresarSoloNumeros());
+        System.out.println(this.toString());
     }
 
 
     //ToString con los datos modif. al metodo de persona
     @Override
     public String toString() {
-        return "Estudiante:/n" + super.toString();
+        return "Estudiante:\n" + super.toString();
     }
 }

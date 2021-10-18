@@ -11,6 +11,7 @@ public class Materia {
     public Materia(String nombre, Profesor titular, ArrayList<Estudiante> coleccionEstudiantes) {
         this.nombre = nombre;
         this.titular = titular;
+        this.coleccionEstudiantes = new ArrayList<>();
         this.coleccionEstudiantes = coleccionEstudiantes;
     }
 
@@ -31,12 +32,29 @@ public class Materia {
         this.titular = titular;
     }
 
+
+    //Coleccion de estudiantes
     public ArrayList<Estudiante> getColeccionEstudiantes() {
         return coleccionEstudiantes;
     }
 
     public void setColeccionEstudiantes(ArrayList<Estudiante> coleccionEstudiantes) {
         this.coleccionEstudiantes = coleccionEstudiantes;
+    }
+
+
+    //Metodo ver cantidad de estudiantes que posee la materia
+    public int verCantidad() {
+        return this.coleccionEstudiantes.size();
+    }
+
+    public String listarContenidos() {
+        String str = "Listado de Estudiantes en la materia " + this.nombre + "\n";
+        for (Estudiante est : this.coleccionEstudiantes) {
+            str += est.getApellido();
+            str += " " + est.getNombre() + " \n";
+        }
+        return str;
     }
 
 
@@ -48,8 +66,18 @@ public class Materia {
 
 
     //Metodo Elliminar Estudiante
-    public void  eliminarEstudiante(String nombre){
-        this.coleccionEstudiantes.remove(nombre);
+    public void  eliminarEstudiante(int legajoEstudiante) {
+        Boolean contiene = false;
+        for (Estudiante x : this.coleccionEstudiantes) {
+            contiene = false;
+            if (x.getLegajo() == legajoEstudiante) {
+                this.coleccionEstudiantes.remove(x);
+                contiene = true;
+            }
+        }
+        if (contiene= true)  System.out.println("El estudiante a sido removido con exito.");
+
+        else System.out.println("No se encontro el numero de legajo en la lista.");
     }
 
 
@@ -58,4 +86,10 @@ public class Materia {
         Profesor titular = new Profesor(nombre,apellido,legajo,basico,antiguedad);
         this.setTitular(titular);
     }
+
+    public String toString() {
+        String str = String.format("Materia %s\n" + "%s\n" + "%s\n",this.nombre, this.titular, this.coleccionEstudiantes);
+        return str;
+    }
+
 }

@@ -1,7 +1,7 @@
 package com.company;
 
 public interface Informacion {
-    public int verCantidad();
+    public abstract int verCantidad();
 
-    public String listaContenidos ();
+    public abstract String listaContenidos ();
 }
