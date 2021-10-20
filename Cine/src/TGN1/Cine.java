@@ -1,11 +1,8 @@
 package TGN1;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import java.util.ArrayList;
-
-import static java.awt.SystemColor.info;
-import static java.lang.Integer.parseInt;
 
 public class Cine {
     public static void main(String[] args) {
@@ -22,7 +19,13 @@ public class Cine {
         System.out.println(acomodador1.toString());
 
         Empleados empleado1 = new Empleados("Carlos", 50);
+        empleado1.setSueldo(39999);
         System.out.println(empleado1.toString());
+
+        //Se debe poder listar los espectadores de una sala, pero en caso de que no haya sido asignada
+        // se debe capturar el error emitiendo el mensaje "SIN ESPECTADORES CARGADOS".
+        Salas sala02 = new Salas(5, "Sala 02");
+        System.out.println(sala02.toString());
 
         scanner.close();
 
@@ -30,7 +33,9 @@ public class Cine {
 
     private static Espectadores[] cargarEspectadores(Scanner s, int cantidad) {
         Espectadores[] espectadores = new Espectadores[cantidad];
-        ArrayList <Integer> coleccionEspectadoresA;
+
+        //Filas
+        ArrayList<Integer> coleccionEspectadoresA;
         coleccionEspectadoresA = new ArrayList<>();
         ArrayList <Integer> coleccionEspectadoresB;
         coleccionEspectadoresB = new ArrayList<>();
@@ -43,155 +48,126 @@ public class Cine {
         ArrayList <Integer> coleccionEspectadoresF;
         coleccionEspectadoresF = new ArrayList<>();
 
-
-        System.out.println("Ingresar los siguientes datos de los espectadores: ");
-
         String nombre;
         String edadString;
         int edad = 0;
         String fila;
         String sillaString;
         int silla = 0;
-        boolean varInfo = false;
+        boolean correcto;
+        int cont = 0;
+        boolean x = false;
+        boolean z = false;
+
+        System.out.println("Capacidad de la sala: " + cantidad);
+        System.out.println("Ingresar los siguientes datos de los espectadores: ");
 
         for(int i = 0; i < espectadores.length; i++){
 
             System.out.println("\nEspectador " + (i+1) + ": ");
 
-            nombre = validacionString("nombre: ", s);
+            nombre = validacionString("Nombre: ", s);
 
-            do {
-
-                System.out.print("Edad: ");
-                edadString = s.nextLine();
-
-                try {
-                    edad = parseInt(edadString);
-                    varInfo = true;
-                } catch (Exception e) {
-                    System.out.println("ERROR EN EL INGRESO DE DATOS");
-                    varInfo = false;
-                }
-            }while(varInfo == false);
-
-            fila = ingresarSoloLetras();
-
-            boolean correcto = false;
             do{
-                int auxiliar = cantidad;
-                System.out.print("Silla: ");
-                sillaString = s.nextLine();
+                edadString = validacionString("Edad: ", s);
 
                 //Verifico que el usuario ingreso un numero
                 try {
-                    silla = parseInt(sillaString);
-
+                    edad = Integer.parseInt(edadString);
+                    z = true;
                 }catch (Exception e){
-                    System.out.println("Error. No has ingresado un numero");
+                    System.out.println("ERROR EN EL INGRESO DE DATOS");
+                    z = false;
                 }
 
+                if(edad < 1 || edad > 110){
+                    System.out.println("Edad no valida");
+                }
+
+            }while ((edad < 1 || edad > 110) || !z);
+
+            fila = ingresarSoloLetra(s);
+
+            correcto = false;
+            do{
+                //Verifico que el usuario ingreso un numero
+                do{
+                    sillaString = validacionString("Silla: ", s);
+                    try {
+                        silla = Integer.parseInt(sillaString);
+                        x = true;
+                    }catch (Exception e){
+                        x = false;
+                        System.out.println("ERROR EN EL INGRESO DE DATOS");
+                    }
+                }while (!x);
+
                 //Agregar la fila a la condicion del if de abajo asi tambien tiene en cuenta la fila, y agregar un if por cada fila
-                switch (fila) {
-                    case "a": {
-                        if (silla > 0 && silla <= cantidad) {
-                            if (coleccionEspectadoresA.contains(silla) == false) {
+
+                if (silla > 0 && silla <= cantidad) {
+                    switch (fila) {
+                        case "a": {
+                            if (!coleccionEspectadoresA.contains(silla)) {
                                 correcto = true;
-                                auxiliar--;
                                 coleccionEspectadoresA.add(silla);
                             } else System.out.println("Silla no disponible. Intente nuevamente.");
-
-                        } else {
-                            System.out.println("La silla ingresada no existe");
                         }
-                    }
-                    break;
+                        break;
 
-                    case "b": {
-                        if (silla > 0 && silla <= cantidad) {
-                            if (coleccionEspectadoresB.contains(silla) == false) {
+                        case "b": {
+                            if (!coleccionEspectadoresB.contains(silla)) {
                                 correcto = true;
-                                auxiliar--;
                                 coleccionEspectadoresB.add(silla);
                             } else System.out.println("Silla no disponible. Intente nuevamente.");
 
-                        } else {
-                            System.out.println("La silla ingresada no existe");
                         }
-                    }
-                    break;
+                        break;
 
-                    case "c": {
-                        if (silla > 0 && silla <= cantidad) {
-                            if (coleccionEspectadoresC.contains(silla) == false) {
+                        case "c": {
+                            if (!coleccionEspectadoresC.contains(silla)) {
                                 correcto = true;
-                                auxiliar--;
                                 coleccionEspectadoresC.add(silla);
                             } else System.out.println("Silla no disponible. Intente nuevamente.");
-
-                        } else {
-                            System.out.println("La silla ingresada no existe");
                         }
-                    }
-                    break;
+                        break;
 
-                    case "d": {
-                        if (silla > 0 && silla <= cantidad) {
-                            if (coleccionEspectadoresD.contains(silla) == false) {
+                        case "d": {
+                            if (!coleccionEspectadoresD.contains(silla)) {
                                 correcto = true;
-                                auxiliar--;
                                 coleccionEspectadoresD.add(silla);
                             } else System.out.println("Silla no disponible. Intente nuevamente.");
-
-                        } else {
-                            System.out.println("La silla ingresada no existe");
                         }
-                    }
-                    break;
+                        break;
 
-                    case "e": {
-                        if (silla > 0 && silla <= cantidad) {
-                            if (coleccionEspectadoresE.contains(silla) == false) {
+                        case "e": {
+                            if (!coleccionEspectadoresE.contains(silla)) {
                                 correcto = true;
-                                auxiliar--;
                                 coleccionEspectadoresE.add(silla);
                             } else System.out.println("Silla no disponible. Intente nuevamente.");
-
-                        } else {
-                            System.out.println("La silla ingresada no existe");
                         }
-                    }
-                    break;
+                        break;
 
-                    case "f": {
-                        if (silla > 0 && silla <= cantidad) {
-                            if (coleccionEspectadoresF.contains(silla) == false) {
+                        case "f": {
+                            if (!coleccionEspectadoresF.contains(silla)) {
                                 correcto = true;
-                                auxiliar--;
                                 coleccionEspectadoresF.add(silla);
                             } else System.out.println("Silla no disponible. Intente nuevamente.");
+                        }
+                        break;
 
-                        } else {
-                            System.out.println("La silla ingresada no existe");
+                        default: {
+                            System.out.println("Error fila ingresada invalida o fuera de los limites.(Ingresa solo minusculas)");
                         }
                     }
-                    break;
 
-                    default: {
-                        System.out.println("Error fila ingresada invalida o fuera de los limites.(Ingresa solo minusculas)");
-
-                    }
+                } else {
+                    System.out.println("La silla ingresada no existe");
                 }
-            }while (correcto== false);
 
-            try {
-                silla = parseInt(sillaString);
-            }catch (Exception e){
-                System.out.println("ERROR EN EL INGRESO DE DATOS");
-                System.exit(1); //Finalizar programa
-            }
+            }while (!correcto);
 
             espectadores[i] = new Espectadores(nombre, edad, fila, silla);
-
+            cont++;
         }
 
         return espectadores;
@@ -209,13 +185,12 @@ public class Cine {
         return s1;
     }
 
+    //Verifica que el string ingresado sea solo una letra
+    public static String ingresarSoloLetra(Scanner s) {
 
-
-    public static String ingresarSoloLetras() {
-        Scanner str = new Scanner(System.in);
         String letras;
         int cont = 0;
-        boolean condicion = false;
+        boolean condicion;
         List<String> varLetras;
         varLetras = new ArrayList<>();
         varLetras.add("a");
@@ -225,10 +200,10 @@ public class Cine {
         varLetras.add("e");
         varLetras.add("f");
 
-        do {
+
             do {
                 System.out.print("Fila (a-f): ");
-                letras = str.nextLine();
+                letras = s.nextLine();
                 cont = 0;
 
                 for (int i = 0; i < letras.length(); i++) {
@@ -239,17 +214,17 @@ public class Cine {
                     }
                 }
 
-
                 if (cont > 1) {
-                    System.out.println("Error solo puede contener  1 letras. Intente de nuevo\n");
+                    System.out.println("Error solo puede contener 1 letra. Intente de nuevo\n");
                     condicion = false;
                     cont = 0;
                 } else {
                     condicion = true;
                 }
-            }
-            while (condicion == false);
-        }while(varLetras.contains(letras) == false);
+            } while ((!condicion) || (!varLetras.contains(letras)));
+
+
         return letras;
     }
+
 }

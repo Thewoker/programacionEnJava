@@ -25,6 +25,7 @@ public abstract class Persona {
         this.edad = edad;
     }
 
+    //Metodos abstractos
     public abstract String getTipo();
     public abstract String toString();
 

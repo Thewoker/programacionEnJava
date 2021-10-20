@@ -11,6 +11,10 @@ public class Empleados extends Persona{
         this.sueldo = sueldo;
     }
 
+    public double getSueldo() {
+        return sueldo;
+    }
+
     @Override
     public String getTipo() {
         return "Empleado";
@@ -21,6 +25,6 @@ public class Empleados extends Persona{
         return "\nEmpleado:\n" +
                 "nombre:" + getNombre() +
                 ", edad: " + getEdad() +
-                ", sueldo: " + sueldo + "\n";
+                ", sueldo: $" + sueldo + "\n";
     }
 }

@@ -23,10 +23,20 @@ public class Acomodadores extends Empleados implements ParaAcomodadores{
     }
 
     @Override
+    public void setSueldo(double sueldo) {
+        super.setSueldo(sueldo);
+    }
+
+    @Override
+    public double getSueldo() {
+        return super.getSueldo();
+    }
+
+    @Override
     public String toString() {
         return "\nAcomodador:\n" +
                 "nombre:" + getNombre() +
                 ", edad: " + getEdad() +
-                ", sala: " + sala.getNombre() + "\n";
+                ", sueldo: $" + getSueldo() + "\n";
     }
 }

@@ -8,10 +8,6 @@ public class Salas {
     private String nombre;
     private Espectadores[] espectadores;
 
-    public int getCapacidad() {
-        return capacidad;
-    }
-
     public Salas(int capacidad, String nombre){
         this.capacidad = capacidad;
         this.nombre = nombre;
@@ -33,16 +29,21 @@ public class Salas {
         return espectadores;
     }
 
+    public int getCapacidad() {
+        return capacidad;
+    }
+
     @Override
     public String toString() {
 
         if(espectadores == null){
             return nombre + " SIN ESPECTADORES CARGADOS";
         }else{
-            return "Nombre sala: " + nombre + "\n" +
+            return "\nNombre sala: " + nombre + "\n" +
                     "Pelicula: " + pelicula + "\n" +
                     "Capacidad: " + capacidad  + "\n" +
                     "Espectadores: " + Arrays.toString(espectadores);
         }
     }
+
 }
